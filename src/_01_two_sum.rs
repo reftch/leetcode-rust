@@ -28,12 +28,12 @@
 pub fn two_sum(nums: Vec<i32>, target: i32) -> Vec<i32> {
     let mut map = std::collections::HashMap::new();
 
-    for (i, num) in nums.iter().enumerate() {
+    for (index, num) in nums.iter().enumerate() {
         let complement = target - num;
         if let Some(&j) = map.get(&complement) {
-            return vec![j as i32, i as i32];
+            return vec![j as i32, index as i32];
         }
-        map.insert(num, i);
+        map.insert(num, index);
     }
     vec![]
 }
