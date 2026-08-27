@@ -57,17 +57,19 @@ impl Solution {
             }
         };
 
-        let (total, _) = s.bytes().fold((0, 0), |(total, prev), b| {
-            let curr = value(b);
-            if curr > prev {
-                // Subtract prev twice: once to undo the previous addition, once for subtraction rule
-                (total + curr - 2 * prev, curr)
-            } else {
-                (total + curr, curr)
-            }
-        });
-
-        total
+        s.bytes()
+            .rev()
+            .fold((0, 0), |(total, mut prev), b| {
+                let curr = value(b);
+                let total = if curr < prev {
+                    total - curr
+                } else {
+                    total + curr
+                };
+                prev = curr;
+                (total, prev)
+            })
+            .0
     }
 }
 
