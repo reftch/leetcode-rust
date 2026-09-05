@@ -7,3 +7,4 @@ mod _21_merge_two_lists;
 mod _26_remove_duplicates;
 mod _27_remove_element;
 mod _28_str_str;
+mod _35_search_insert;
