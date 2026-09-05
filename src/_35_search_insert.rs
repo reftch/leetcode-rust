@@ -9,22 +9,19 @@ struct Solution;
 
 impl Solution {
     pub fn search_insert(nums: Vec<i32>, target: i32) -> i32 {
-        if nums.is_empty() {
-            return 0;
-        }
+        let mut left = 0;
+        let mut right = nums.len();
 
-        let mut i = 0;
-        for _ in 0..nums.len() {
-            if nums[i] == target
-                || (i > 0 && nums[i] > target && nums[i - 1] < target)
-                || nums[i] > target
-            {
-                return i as i32;
+        while left < right {
+            let mid = left + (right - left) / 2;
+            if nums[mid] < target {
+                left = mid + 1;
+            } else {
+                right = mid;
             }
-            i += 1;
         }
 
-        i as i32
+        left as i32
     }
 }
 
@@ -34,13 +31,10 @@ mod test {
 
     #[test]
     fn test_search_insert() {
-        let nums = vec![1, 3, 5, 6];
-        assert_eq!(Solution::search_insert(nums, 0), 0);
-        let nums = vec![1, 3, 5, 6];
-        assert_eq!(Solution::search_insert(nums, 5), 2);
-        let nums = vec![1, 3, 5, 6];
-        assert_eq!(Solution::search_insert(nums, 2), 1);
-        let nums = vec![1, 3, 5, 6];
-        assert_eq!(Solution::search_insert(nums, 7), 4);
+        let nums = vec![-1, 3, 5, 6];
+        assert_eq!(Solution::search_insert(nums.clone(), 0), 1);
+        assert_eq!(Solution::search_insert(nums.clone(), 5), 2);
+        assert_eq!(Solution::search_insert(nums.clone(), 2), 1);
+        assert_eq!(Solution::search_insert(nums.clone(), 7), 4);
     }
 }
